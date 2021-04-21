@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class App {
     static String[] one = {"3x=8"};
     static String[] two = {"2x+y=3", "3x-3y=9"};
@@ -15,9 +13,13 @@ public class App {
         System.out.println(equation2.coefs);
     }
     public static void EqSystemTester(){
-        EqSystem system = new EqSystem(three);
-        for (ArrayList<Double> coefs : system.getCoefArray()){
-            System.out.println(coefs);
+        EqSystem system = new EqSystem(four);
+        for (Double[] eq : system.getCoefArray()){
+            System.out.print("[ ");
+            for (Double coef : eq){
+                System.out.print(coef + " ");
+            }
+            System.out.println("]");
         }
     }
 }
