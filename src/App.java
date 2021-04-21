@@ -12,14 +12,26 @@ public class App {
         Equation equation2 = new Equation("3x+y-z=-3.5");
         System.out.println(equation2.coefs);
     }
+
     public static void EqSystemTester(){
-        EqSystem system = new EqSystem(four);
-        for (Double[] eq : system.getCoefArray()){
-            System.out.print("[ ");
-            for (Double coef : eq){
-                System.out.print(coef + " ");
-            }
-            System.out.println("]");
+        EqSystem system = new EqSystem(three);
+        system.gauss();
+        for (Stage stage : system.stages){
+            printArray(stage.coefArr);
+            System.out.println();
+        }
+    }
+
+    public static void printArray(Double[] arr){
+        System.out.print("[ ");
+        for (Double elem : arr){
+            System.out.print(elem + " ");
+        }  
+        System.out.println("]");
+    }
+    public static void printArray(Double[][] arr){
+        for (Double[] eq : arr){
+            printArray(eq);
         }
     }
 }
