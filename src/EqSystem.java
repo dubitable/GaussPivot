@@ -31,8 +31,7 @@ public class EqSystem {
 
         if (coefArr.length == 1){
             Double result = stage.coefArr[0][1] / stage.coefArr[0][0];
-            Double[][] listresult = {{result}};
-            stage = new Stage(listresult, stage.history);
+            stage = new Stage(result, stage.history);
             stages.add(stage);
             return stage;
         }
@@ -65,8 +64,24 @@ public class EqSystem {
         return gauss(newStage);
     }
 
+
     public Double[][] getCoefArray(){
         return coefArray;
     }
-    
+
+    public void printStages(){
+        for (Stage stage : stages){
+            try {
+                App.printArray(stage.coefArr);
+                System.out.println();
+                App.printArray(stage.history);
+            }
+            catch (Exception e){
+                System.out.println(stage.result);
+                System.out.println();
+                App.printArray(stage.history);
+            }
+            System.out.println("---------------");
+        }
+    }
 }

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class App {
     static String[] one = {"3x=8"};
     static String[] two = {"2x+y=3", "3x-3y=9"};
@@ -15,11 +17,8 @@ public class App {
 
     public static void EqSystemTester(){
         EqSystem system = new EqSystem(three);
-        system.gauss();
-        for (Stage stage : system.stages){
-            printArray(stage.coefArr);
-            System.out.println();
-        }
+        Stage stage = system.gauss();
+        system.printStages();
     }
 
     public static void printArray(Double[] arr){
@@ -32,6 +31,11 @@ public class App {
     public static void printArray(Double[][] arr){
         for (Double[] eq : arr){
             printArray(eq);
+        }
+    }
+    public static void printArray(ArrayList<Double>[] arr){
+        for (ArrayList<Double> list : arr){
+            System.out.println(list);
         }
     }
 }
