@@ -1,9 +1,11 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class EqSystem {
     private Equation[] equations;
     private Double[][] coefArray;
     public ArrayList<Stage> stages;
+    public ArrayList<SolutionStage> solStages;
 
     public EqSystem(String[] stringEqs){
         int l = stringEqs.length;
@@ -17,6 +19,7 @@ public class EqSystem {
             }
         }
         stages = new ArrayList<Stage>();
+        solStages = new ArrayList<SolutionStage>();
     }
 
     public Stage gauss(){
@@ -64,6 +67,37 @@ public class EqSystem {
         return gauss(newStage);
     }
 
+    public SolutionStage ladderSolve(){
+        return ladderSolve(stages.get(stages.size() - 1));
+    }
+
+    public SolutionStage ladderSolve(Stage stage){
+        return ladderSolve(new SolutionStage(stage.result, Utilities.reverseArray(stage.history)));
+    }
+
+    public SolutionStage ladderSolve(SolutionStage solStage){
+        if (solStage.hist.length == 0){
+            return solStage;
+        }
+        ArrayList<Double> equation = solStage.hist[0];
+        Double sum = 0.0;
+        for (int i = 1; i < equation.size() - 1; i++){
+            sum += equation.get(i) * solStage.results[i-1];
+        }
+        Double newresult = (equation.get(equation.size() - 1) - sum) / equation.get(0);
+        Double[] resultArr = new Double[solStage.results.length + 1];
+        resultArr[0] = newresult;
+        for (int i = 1; i < resultArr.length; i++){
+            resultArr[i] = solStage.results[i-1];
+        }
+        ArrayList<Double>[] newHist = Arrays.copyOfRange(solStage.hist, 1, solStage.hist.length);
+
+        SolutionStage outputStage = new SolutionStage(resultArr, newHist);
+        solStages.add(outputStage);
+        return ladderSolve(outputStage);
+    }
+
+
 
     public Double[][] getCoefArray(){
         return coefArray;
@@ -72,14 +106,14 @@ public class EqSystem {
     public void printStages(){
         for (Stage stage : stages){
             try {
-                App.printArray(stage.coefArr);
+                Utilities.printArray(stage.coefArr);
                 System.out.println();
-                App.printArray(stage.history);
+                Utilities.printArray(stage.history);
             }
             catch (Exception e){
                 System.out.println(stage.result);
                 System.out.println();
-                App.printArray(stage.history);
+                Utilities.printArray(stage.history);
             }
             System.out.println("---------------");
         }

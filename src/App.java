@@ -8,34 +8,19 @@ public class App {
     public static void main(String[] args) throws Exception {
         EqSystemTester();
     }
-    public static void EquationTester(){
-        Equation equation1 = new Equation("3x+3y+z=-3");
-        System.out.println(equation1.coefs);
-        Equation equation2 = new Equation("3x+y-z=-3.5");
-        System.out.println(equation2.coefs);
-    }
 
     public static void EqSystemTester(){
-        EqSystem system = new EqSystem(three);
-        Stage stage = system.gauss();
-        system.printStages();
-    }
 
-    public static void printArray(Double[] arr){
-        System.out.print("[ ");
-        for (Double elem : arr){
-            System.out.print(elem + " ");
-        }  
-        System.out.println("]");
-    }
-    public static void printArray(Double[][] arr){
-        for (Double[] eq : arr){
-            printArray(eq);
-        }
-    }
-    public static void printArray(ArrayList<Double>[] arr){
-        for (ArrayList<Double> list : arr){
-            System.out.println(list);
-        }
+        EqSystem system1 = new EqSystem(one);
+        Utilities.printArray(system1.ladderSolve(system1.gauss()).results);
+
+        EqSystem system2 = new EqSystem(two);
+        Utilities.printArray(system2.ladderSolve(system2.gauss()).results);
+
+        EqSystem system3 = new EqSystem(three);
+        Utilities.printArray(system3.ladderSolve(system3.gauss()).results);
+
+        EqSystem system4 = new EqSystem(four);
+        Utilities.printArray(system4.ladderSolve(system4.gauss()).results);
     }
 }
